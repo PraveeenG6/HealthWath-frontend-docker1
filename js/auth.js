@@ -66,19 +66,21 @@ const Auth = {
         const passwordInput = document.getElementById('login-password');
 
         if (role === 'DOCTOR') {
-            userInput.value = 'doctor1';
-            passwordInput.value = 'doctor123';
+            userInput.value = '1BM24EC403';
+            passwordInput.value = 'miniproject';
             return;
         }
 
-        userInput.value = 'patient1';
-        passwordInput.value = 'patient123';
+        userInput.value = '1BM24EC407';
+        passwordInput.value = 'miniproject';
     },
 
     _showLogin() {
         document.getElementById('login-page').classList.add('active');
         document.getElementById('patient-dashboard').classList.remove('active');
         document.getElementById('doctor-dashboard').classList.remove('active');
+        const activeRole = document.querySelector('.role-btn.active')?.dataset.role || 'PATIENT';
+        this.fillDemoCredentials(activeRole);
     },
 
     _showDashboard(role) {

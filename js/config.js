@@ -1,5 +1,4 @@
 const isLocalHost = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
-const DEFAULT_REMOTE_API_BASE_URL = 'https://healthwatch-backend-production.up.railway.app';
 
 function normalizeApiBaseUrl(value) {
     return value ? value.replace(/\/+$/, '') : '';
@@ -15,10 +14,12 @@ if (queryApiBaseUrl) {
 const configuredApiBaseUrl = normalizeApiBaseUrl(
     window.HEALTHWATCH_API_BASE_URL || localStorage.getItem('healthwatchApiBaseUrl')
 );
+const defaultApiBaseUrl = isLocalHost ? 'http://localhost:8081' : '';
 
 const CONFIG = {
-    API_BASE_URL: configuredApiBaseUrl || (isLocalHost ? 'http://localhost:8081' : DEFAULT_REMOTE_API_BASE_URL),
-    DEMO_DOCTOR_ID: 'doctor1',
+    API_BASE_URL: configuredApiBaseUrl || defaultApiBaseUrl,
+    API_BASE_URL_CONFIGURED: Boolean(configuredApiBaseUrl || defaultApiBaseUrl),
+    DEMO_DOCTOR_ID: '1BM24EC403',
 
     ENDPOINTS: {
         
