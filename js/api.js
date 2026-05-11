@@ -29,7 +29,8 @@ const API = {
                 headers: requestHeaders,
             });
         } catch (error) {
-            throw new Error(`Cannot connect to backend at ${CONFIG.API_BASE_URL}. Start Spring Boot on port 8081 and open the frontend from the same computer or network.`);
+            console.error('Backend request failed', error);
+            throw new Error(`Cannot connect to backend at ${CONFIG.API_BASE_URL}. Check the backend public URL, CORS, HTTPS, and network access.`);
         }
 
         if (!response.ok) {

@@ -3,10 +3,13 @@ const API_HOST = ['localhost', '127.0.0.1', ''].includes(window.location.hostnam
     : window.location.hostname;
 
 const CONFIG = {
-    API_BASE_URL: `https://healthwatch-backend-production.up.railway.app`,
+    API_BASE_URL: API_HOST === 'localhost'
+        ? 'http://localhost:8081'
+        : 'https://healthwatch-backend-production.up.railway.app',
     DEMO_DOCTOR_ID: 'doctor1',
 
     ENDPOINTS: {
+        
         AUTH_LOGIN: '/api/auth/login',
         HEALTH_READING: '/api/health/reading',
         HEALTH_LATEST: '/api/health/latest',
