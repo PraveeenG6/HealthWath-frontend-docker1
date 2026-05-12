@@ -13,7 +13,7 @@ const API = {
 
     async request(endpoint, options = {}) {
         if (!CONFIG.API_BASE_URL_CONFIGURED) {
-            throw new Error('Backend URL is not configured. Open this Vercel site once with ?api=https://your-railway-domain after the Railway backend is deployed.');
+            throw new Error('Backend URL is not configured. Enter your Spring Boot backend URL on the login screen.');
         }
 
         const { noAuth, headers, ...fetchOptions } = options;

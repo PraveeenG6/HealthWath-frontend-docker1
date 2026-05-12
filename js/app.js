@@ -8,6 +8,7 @@
     });
 
     function setupStartScreen() {
+        const saveBackendConfig = setupBackendConfig();
         const roleButtons = document.querySelectorAll('.role-btn');
         roleButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -19,6 +20,9 @@
 
         document.getElementById('login-form').addEventListener('submit', async event => {
             event.preventDefault();
+            if (!saveBackendConfig()) {
+                return;
+            }
             await Auth.login();
         });
 
@@ -41,6 +45,50 @@
                 Alerts.showToastMessage('danger', 'SOS Failed', error.message);
             }
         });
+    }
+
+    function setupBackendConfig() {
+        const input = document.getElementById('backend-url');
+        const saveButton = document.getElementById('backend-url-save-btn');
+        const message = document.getElementById('backend-url-message');
+
+        if (!input) {
+            return () => true;
+        }
+
+        input.value = CONFIG.API_BASE_URL || '';
+        input.required = !CONFIG.API_BASE_URL_CONFIGURED;
+
+        function setMessage(text, type = '') {
+            if (!message) {
+                return;
+            }
+
+            message.textContent = text;
+            message.classList.remove('success', 'error');
+            if (type) {
+                message.classList.add(type);
+            }
+        }
+
+        function save(showMessage = false) {
+            try {
+                const apiBaseUrl = CONFIG.setApiBaseUrl(input.value);
+                input.value = apiBaseUrl;
+                input.required = !CONFIG.API_BASE_URL_CONFIGURED;
+                setMessage(showMessage && apiBaseUrl ? `Saved ${apiBaseUrl}` : '', 'success');
+                return true;
+            } catch (error) {
+                setMessage(error.message, 'error');
+                input.focus();
+                return false;
+            }
+        }
+
+        saveButton?.addEventListener('click', () => save(true));
+        input.addEventListener('change', () => save(false));
+
+        return () => save(false);
     }
 
     function setupAlertDismiss() {
