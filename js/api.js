@@ -13,7 +13,7 @@ const API = {
 
     async request(endpoint, options = {}) {
         if (!CONFIG.API_BASE_URL_CONFIGURED) {
-            throw new Error('Backend URL is not configured. Enter your Spring Boot backend URL on the login screen.');
+            throw new Error('Backend URL is not configured. Set BACKEND_API_BASE_URL in js/config.js.');
         }
 
         const { noAuth, headers, ...fetchOptions } = options;
