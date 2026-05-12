@@ -1,5 +1,5 @@
 // Set your Spring Boot backend URL here. Do not add a trailing slash.
-const BACKEND_API_BASE_URL = 'https://healthwatch-backend-production.up.railway.app';
+const BACKEND_API_BASE_URL = 'https://healthwatch-backend-docker.onrender.com';
 
 const isLocalHost = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
 
